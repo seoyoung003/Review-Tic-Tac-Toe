@@ -1,12 +1,23 @@
+import { useState } from "react";
 
-
-const gameBoard = [
+const initialgameBoard = [
     [null, null, null],
     [null, null, null],
     [null, null, null]
 ];
 
+
+
 export default function GameBoard() {
+    const [gameBoard, setGameBoard] = useState(gameBoard);
+
+    function handleChange(rowIndex, colIndex) {
+        setGameBoard((prevGameBoard) => {
+            const upadatedGameBoard = [...prevGameBoard].map((innerArray) => [...innerArray]);
+            upadatedGameBoard [rowIndex] [colIndex] = 'X';
+            return upadatedGameBoard;
+        });
+    } 
     
     return(
         <ol id="game-board">
@@ -15,7 +26,7 @@ export default function GameBoard() {
                 <ol>
                     {row.map((playerSymbol, colIndex) => 
                     <li key={colIndex}>
-                        <button>{playerSymbol}</button>
+                        <button onClick={(rowIndex, colIndex) => handleChange()}>{playerSymbol}</button>
                     </li>) }
                 </ol>
             </li>)}
