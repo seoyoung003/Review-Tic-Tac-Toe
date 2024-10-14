@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({playerName, symbol}) {
+export default function Player({playerName, symbol, isActive}) {
   const [selected, setSelected] = useState(false);
   const [initialPlayerName, setInitialPlayerName] =  useState(playerName);
 
@@ -12,19 +12,19 @@ export default function Player({playerName, symbol}) {
 
 
   function isSeleted() {
-    setSelected((selected) => !selected)
+    setSelected((selected) => !selected);
   }
 
   let editablePlayerName = <span className="player-name">{initialPlayerName}</span>
 
   if(selected) {
     editablePlayerName = (
-      <input type="text" value={initialPlayerName} onChange={handlePlayerName}/>
+      <input type="text"  required value={initialPlayerName} onChange={handlePlayerName}/>
     );
 
   }
   return (
-    <li>
+    <li className={isActive ? 'active' : undefined}>
       <span className="player">
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>

@@ -8,15 +8,16 @@ const initialgameBoard = [
 
 
 
-export default function GameBoard() {
-    const [gameBoard, setGameBoard] = useState(gameBoard);
+export default function GameBoard({onSelectPlayer, nowPlayer}) {
+    const [gameBoard, setGameBoard] = useState(initialgameBoard);
 
     function handleChange(rowIndex, colIndex) {
         setGameBoard((prevGameBoard) => {
-            const upadatedGameBoard = [...prevGameBoard].map((innerArray) => [...innerArray]);
-            upadatedGameBoard [rowIndex] [colIndex] = 'X';
-            return upadatedGameBoard;
+            const updatedGameBoard = [...prevGameBoard].map((innerArray) => [...innerArray]);
+            updatedGameBoard [rowIndex] [colIndex] = nowPlayer;
+            return updatedGameBoard;
         });
+        onSelectPlayer();
     } 
     
     return(
@@ -26,7 +27,7 @@ export default function GameBoard() {
                 <ol>
                     {row.map((playerSymbol, colIndex) => 
                     <li key={colIndex}>
-                        <button onClick={(rowIndex, colIndex) => handleChange()}>{playerSymbol}</button>
+                        <button onClick={() => handleChange(rowIndex, colIndex)}>{playerSymbol}</button>
                     </li>) }
                 </ol>
             </li>)}
